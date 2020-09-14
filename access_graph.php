@@ -39,12 +39,11 @@ echo '<tr><th>id</th><th>timestamp</th><th>ip</th><th>agent</th>';
 
 echo '<th>date</th><th>time</th></tr>';
 
-
 for ($i=0;$i<10;$i++)
 {
     $result_row = $result->fetchRow(DB_FETCHMODE_ASSOC);
 
-    echo '<tr class="box2-content"><td>';
+    echo '<tr><td>';
 
     echo $result_row["id"] . '</td><td>';
 
@@ -66,7 +65,7 @@ echo "30日間のアクセス数グラフ<br />" ;
 
 echo "<table>";
 //    クエリを作成する。日付ごとのアクセス総数
-$query = "SELECT  a_date,count(a_date) as d_count  FROM  counter group by a_date order by a_date desc " ;
+$query = "SELECT  a_date,count(a_date) as d_count  FROM  a_log group by a_date order by a_date desc " ;
 //    クエリの実行
 $result = $connection->query($query);
 if (!$result){
@@ -79,12 +78,12 @@ for ($i=0;$i<30;$i++)
     $result_row = $result->fetchRow(DB_FETCHMODE_ASSOC);
 
     $a_date = $result_row["a_date"] ;
-    $a_count = result_$row["d_count"] ;
+    $d_count = $result_row["d_count"] ;
     echo "<tr>" ;
     echo "<td>$a_date</td>" ;
-    printf("<td><pre><strong>(%3d)</strong></pre></td>",$a_count) ;
+    printf("<td><pre><strong>(%3d)</strong></pre></td>",$d_count) ;
     echo "<td>" ;
-    for ($j=0;$j<$a_count;$j++)
+    for ($j=0;$j<$d_count;$j++)
     {
         if (($j+1)%100 == 0){
             echo "||" ;
